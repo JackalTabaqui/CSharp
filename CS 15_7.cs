@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-//Программа выводит количество отрицательных элементов, стоящих после каждого элемента списка
+// Программа выводит количество отрицательных элементов, стоящих после каждого элемента списка
 namespace NodeStekQueue
 {
     class MyNode
@@ -30,7 +30,7 @@ namespace NodeStekQueue
             head = null;
             count = 0;
         }
-        //Вставка последним элементом
+        // Вставка последним элементом
         public void Add(double inf)
         {
             if (head == null) head = new MyNode(inf, null);
@@ -55,6 +55,7 @@ namespace NodeStekQueue
             while (p != null);
             Console.WriteLine();
         }
+        // Метод, выполняющий исходную задачу
         public void NegativeNext(MyList A)
         {
             int k;
