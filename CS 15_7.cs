@@ -111,26 +111,35 @@ namespace NodeStekQueue
     {
         static void Main(string[] args)
         {
-            double a; int x;
+            double a; int x,t;
             MyList L = new MyList();
-            Console.WriteLine("Введите количество элементов: ");
+            Console.Write("Введите количество элементов: ");
             int n = int.Parse(Console.ReadLine());
             Console.WriteLine("Введите элементы: ");
             for (int i = 0; i < n; i++)
                 L.Add(double.Parse(Console.ReadLine()));
-            Console.WriteLine("Ваш список: ");
+            Console.WriteLine("Ваш список:");
             L.Printer();
-            Console.WriteLine("Характеристический вектор списка: ");
+            Console.WriteLine("Характеристический вектор списка:");
             L.NegativeNext(L);
-            Console.WriteLine("Введите значение и номер элемента, который вы хотите вставить");
-            a = double.Parse(Console.ReadLine());
-            x = int.Parse(Console.ReadLine());
-            L.Insert(a,x);
-            L.Printer();
-            Console.WriteLine("Введите номер элемента, который вы хотите удалить");
-            x = int.Parse(Console.ReadLine());
-            L.Delete(x);
-            L.Printer();
+            Console.WriteLine("Вставка элемента - 1, удаление элемента - 2");
+            t = int.Parse(Console.ReadLine());
+            switch (t)
+            {
+                case 1:
+                    Console.WriteLine("Введите значение и номер элемента");
+                    a = double.Parse(Console.ReadLine());
+                    x = int.Parse(Console.ReadLine());
+                    L.Insert(a,x);
+                    L.Printer();
+                    break;
+                case 2:
+                    Console.WriteLine("Введите номер элемента, который вы хотите удалить");
+                    x = int.Parse(Console.ReadLine());
+                    L.Delete(x);
+                    L.Printer();
+                    break;
+            }
             Console.ReadKey();
         }
     }
