@@ -24,55 +24,54 @@ namespace NodeStekQueue
     {
         public MyNode head;
         public int count;
-        // Конструктор списка
         public MyList()
+        // Конструктор списка
         {
             head = null;
             count = 0;
         }
-        //Вставка последним элементом
         public void Add(double inf)
+        //Вставка последним элементом
         {
             if (head == null) head = new MyNode(inf, null);
             else
             {
                 MyNode p = head;
-                while (p.next != null) p = p.next;
+                for (int i = 0; i < count - 1; i++)
+                    p = p.next;
                 p.next = new MyNode(inf, null);
             }
             count++;
         }
-        // Удаление по индексу
         public void Delete(int index)
+        // Удаление по индексу
         {
-            if (index != 0)
+            if (index == 0) head = head.next;
+            else
             {
                 MyNode p = head;
-                for (int i = 0; i < index - 1; i++)
+                for (int i = 0; i < index-2; i++)
                     p = p.next;
                 if (p.next != null)
                     p.next = p.next.next;
             }
-            else
-                head = head.next;
             count--;
         }
-
-        // Вставка по индексу
         public void Insert(double value, int index)
+        // Вставка по индексу
         {
             if (index == 0) head = new MyNode(value, null);
             else
             {
                 MyNode p = head;
-                for (int i = 0; i < index - 1; i++)
+                for (int i = 0; i < index-2; i++)
                     p = p.next;
                 p.next = new MyNode(value, p.next);
                 count++;
             }
         }
-        // Вывод списка
         public void Printer()
+        // Вывод списка
         {
             MyNode p = head;
             do
@@ -83,8 +82,8 @@ namespace NodeStekQueue
             while (p != null);
             Console.WriteLine();
         }
+        public void NegativeNext()
         // Метод, выполняющий исходную задачу
-        public void NegativeNext(MyList A)
         {
             int k;
             MyNode p = head;
@@ -111,7 +110,7 @@ namespace NodeStekQueue
     {
         static void Main(string[] args)
         {
-            double a; int x,t;
+            double a; int x, t;
             MyList L = new MyList();
             Console.Write("Введите количество элементов: ");
             int n = int.Parse(Console.ReadLine());
@@ -120,9 +119,7 @@ namespace NodeStekQueue
                 L.Add(double.Parse(Console.ReadLine()));
             Console.WriteLine("Ваш список:");
             L.Printer();
-            Console.WriteLine("Характеристический вектор списка:");
-            L.NegativeNext(L);
-            Console.WriteLine("Вставка элемента - 1, удаление элемента - 2");
+            Console.WriteLine("Вставка элемента - 1, удаление элемента - 2, выполнение исходной задачи - 3");
             t = int.Parse(Console.ReadLine());
             switch (t)
             {
@@ -130,13 +127,18 @@ namespace NodeStekQueue
                     Console.WriteLine("Введите значение и номер элемента");
                     a = double.Parse(Console.ReadLine());
                     x = int.Parse(Console.ReadLine());
-                    L.Insert(a,x);
+                    L.Insert(a, x);
                     L.Printer();
                     break;
                 case 2:
                     Console.WriteLine("Введите номер элемента, который вы хотите удалить");
                     x = int.Parse(Console.ReadLine());
                     L.Delete(x);
+                    L.Printer();
+                    break;
+                case 3:
+                    Console.WriteLine("Характеристический вектор списка:");
+                    L.NegativeNext();
                     L.Printer();
                     break;
             }
