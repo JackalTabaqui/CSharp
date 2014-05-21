@@ -108,6 +108,43 @@ namespace BinarTree
         {
             return Search(ref top, val);
         }
+        Node q = new Node(0, null, null, null);
+        private void Del(ref Node r)
+        {
+            if (r.right != null)
+                Del(ref r.right);
+            else
+            {
+                q.data = r.data;
+                q = r;
+                r = r.left;
+            }
+        }
+        private void Del0(int data, ref Node p)
+        {
+            if (p != null)
+                if (data < p.data)
+                    Del0(data, ref p.left);
+                else
+                    if (data > p.data)
+                        Del0(data, ref p.right);
+                    else
+                    {
+                        q = p;
+                        if (q.right == null)
+                            p = q.left;
+                        else
+                            if (q.left == null)
+                                p = q.right;
+                            else
+                                Del(ref q.left);
+                    }
+        }
+        public void Delete(int data)
+        // удаление элемента по значению
+        {
+            Del0(data, ref top);
+        }
         public void WriteTree(string path)
         // запись в текстовый файл
         {
