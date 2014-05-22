@@ -23,21 +23,21 @@ namespace BinarTree
             this.parent = parent;
         }
         public void WriteNode(StreamWriter w)
+        {
+            if (this != null)
             {
-                if (this != null)
+                if (left != null)
                 {
-                    if (left != null)
-                    {
-                        w.WriteLine(Convert.ToString(data) + "->" + Convert.ToString(left.data) + ";");
-                        left.WriteNode(w);
-                    }
-                    if (right != null)
-                    {
-                        w.WriteLine(Convert.ToString(data) + "->" + Convert.ToString(right.data) + ";");
-                        right.WriteNode(w);
-                    }
+                    w.WriteLine(Convert.ToString(data) + "->" + Convert.ToString(left.data) + ";");
+                    left.WriteNode(w);
+                }
+                if (right != null)
+                {
+                    w.WriteLine(Convert.ToString(data) + "->" + Convert.ToString(right.data) + ";");
+                    right.WriteNode(w);
                 }
             }
+        }
     }
     class Tree
     // класс дерева
@@ -65,7 +65,7 @@ namespace BinarTree
             }
             else throw new InvalidOperationException("You should fill your tree first");
         }
-        private void Add(Node p, int val)
+        private void Add(Node p, double val)
         // рекурсивная функция добавления элемента со значением val
         {
             if (p.data < val)
@@ -83,7 +83,7 @@ namespace BinarTree
                     Add(p.left, val);
             }
         }
-        public void Add(int value)
+        public void Add(double value)
         // "обёртка" для функции Add
         {
             if (top == null)
@@ -93,17 +93,17 @@ namespace BinarTree
             }
             Add(top, value);
         }
-        private Node Search(ref Node t, int k)
+        private bool Search(ref Node t, double k)
         // рекурсивная функция поиска элемента по значению
         {
             if ((t == null) || (k == t.data))
-                return t;
+                return true;
             else
                 if (k < t.data)
                     return Search(ref t.left, k);
                 else return Search(ref t.right, k);
         }
-        public Node Search(int val)
+        public bool Search(double val)
         // "обёртка" для функции Search
         {
             return Search(ref top, val);
@@ -165,8 +165,17 @@ namespace BinarTree
             Random r = new Random();
             int n = 10;
             for (int i = 0; i < n; i++)
-                bt.Add(r.Next(1, 100));
+            {
+                double a = r.Next(1, 100);
+                if (bt.Search(a)) bt.Add(r.Next(1, 100));
+                else bt.Add(a);
+            }
             bt.WriteTree("Tree.txt");
+            double x = bt.Maximum();
+            double y = bt.Minimum();
+            Console.WriteLine("максимальный элемент равен {0}",x);
+            Console.WriteLine("минимальный элемент равен {0}", y);
+            Console.ReadKey();
         }
     }
 }
