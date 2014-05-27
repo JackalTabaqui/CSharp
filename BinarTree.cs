@@ -93,17 +93,33 @@ namespace BinarTree
             }
             Add(top, value);
         }
-        private bool Search(ref Node t, double k)
-        // рекурсивная функция поиска элемента по значению
+        private bool SearchBool(ref Node t, double k)
+        // рекурсивная функция поиска элемента по значению (возвращает true/false)
         {
+            if ((top == null) || (k != t.data)) return false;
             if ((t == null) || (k == t.data))
                 return true;
+            else
+                if (k < t.data)
+                    return SearchBool(ref t.left, k);
+                else return SearchBool(ref t.right, k);
+        }
+        public bool SearchBool(double val)
+        // "обёртка" для функции SearchBool
+        {
+            return SearchBool(ref top, val);
+        }
+        private Node Search(ref Node t, double k)
+        // рекурсивная функция поиска элемента по значению (возвращает элемент)
+        {
+            if ((t == null) || (k == t.data))
+                return t;
             else
                 if (k < t.data)
                     return Search(ref t.left, k);
                 else return Search(ref t.right, k);
         }
-        public bool Search(double val)
+        public Node Search(double val)
         // "обёртка" для функции Search
         {
             return Search(ref top, val);
@@ -162,7 +178,7 @@ namespace BinarTree
         static void Main(string[] args)
         {
             Tree bt = new Tree();
-            Random r = new Random();
+            /*Random r = new Random();
             int n = 10;
             for (int i = 0; i < n; i++)
             {
@@ -175,7 +191,11 @@ namespace BinarTree
             double y = bt.Minimum();
             Console.WriteLine("максимальный элемент равен {0}",x);
             Console.WriteLine("минимальный элемент равен {0}", y);
-            Console.ReadKey();
+            Console.ReadKey();*/
+            bt.Add(9);
+            bool s = bt.SearchBool(9);
+            Console.Write(s);
+            Console.ReadLine();
         }
     }
 }
